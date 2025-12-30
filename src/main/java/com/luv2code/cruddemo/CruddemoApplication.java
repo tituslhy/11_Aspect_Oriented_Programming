@@ -26,7 +26,9 @@ public class CruddemoApplication {
         Account theAccount = new Account();
         // call the business method
         theAccountDAO.addAccount(theAccount, true);
+        theAccountDAO.doWork();
         theMembershipDAO.addAccount();
+        theMembershipDAO.goToSleep();
 
     }
 

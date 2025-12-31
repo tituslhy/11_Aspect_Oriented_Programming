@@ -130,3 +130,25 @@ private void forDaoPackageNoGetterNoSetter()
 ```
 
 This means that our "combo" pointcut runs for all methods in the package except for the getters and setters.
+
+## Ordering Aspects
+Place advices in separate Aspects (classes) to allow aspects to be ordered using the `@Order` annotation. 
+
+For example:
+
+```java
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+@Aspect
+@Component
+@Order(1)
+public class MyCloudLogAspect{
+        ...
+    }
+```
+
+Lower numbers have higher precedence and negative numbers are allowed! Numbers do not even have to be consecutive.
+
+If aspects have the same order annotation - the order at those points are undefined. These aspects will still run but not in any fixed order.

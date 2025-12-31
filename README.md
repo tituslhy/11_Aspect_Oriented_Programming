@@ -177,3 +177,22 @@ public void beforeAddAccountAdvice(JoinPoint theJoinPoint) {
     }
 }
 ```
+
+## Accessing the return value
+You can use any parameter name - just stay consistent. The parameter defined under `returning` must match the parameter name in the method call.
+
+```java
+import com.luv2code.cruddemo.Account;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
+
+@AfterReturning(
+        pointcut = "execution(* com.luv2code.cruddemo.dao.AccountDAO.findAccounts(..))",
+        returning = "result"
+)
+public void afterReturningFindAccountsAdvice(
+        JoinPoint theJoinPoint, List<Account> result){
+    ...
+}
+
+```

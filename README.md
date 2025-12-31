@@ -82,8 +82,7 @@ import org.springframework.stereotype.Component;
 public class MyDemoLoggingAspect {
 
     @Pointcut("execution(* com.luv2code.cruddemo.dao.*.*(..))")
-    private void forDaoPackage() {
-    }
+    private void forDaoPackage() {}
 
     @Before("forDaoPackage()")
     public void beforeAddAccountAdvice(){

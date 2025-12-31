@@ -192,7 +192,9 @@ import org.aspectj.lang.annotation.AfterReturning;
 )
 public void afterReturningFindAccountsAdvice(
         JoinPoint theJoinPoint, List<Account> result){
-    ...
+    
+    // Just print out the results of the method call.
+    System.out.println("\n=====>>> result is: " + result);
 }
 
 ```

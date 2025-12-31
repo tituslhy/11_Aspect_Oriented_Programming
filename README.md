@@ -152,3 +152,28 @@ public class MyCloudLogAspect{
 Lower numbers have higher precedence and negative numbers are allowed! Numbers do not even have to be consecutive.
 
 If aspects have the same order annotation - the order at those points are undefined. These aspects will still run but not in any fixed order.
+
+## Join Points
+Allows for access and display method signatures to improve the quality of logging
+
+```java
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.reflect.MethodSignature;
+
+@Before("...")
+public void beforeAddAccountAdvice(JoinPoint theJoinPoint) {
+
+    // display the method signature
+    MethodSignature methodSig = (MethodSignature) theJoinPoint.getSignature();
+    System.out.println("Method: " + methodSig);
+    
+    // display method arguments
+    Object[] args = theJoinPoint.getArgs();
+    
+    // loop through args
+    for (Object tempArg: args){
+        System.out.println(tempArg);
+    }
+}
+```

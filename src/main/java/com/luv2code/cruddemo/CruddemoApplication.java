@@ -23,7 +23,11 @@ public class CruddemoApplication {
 
     private void demoTheBeforeAdvice(AccountDAO theAccountDAO, MembershipDAO theMembershipDAO) {
 
+        // Create new account
         Account theAccount = new Account();
+        theAccount.setName("Madhu");
+        theAccount.setLevel("Platinum");
+
         // call the business method
         theAccountDAO.addAccount(theAccount, true);
         theAccountDAO.doWork();

@@ -3,6 +3,7 @@ package com.luv2code.cruddemo.aspect;
 import com.luv2code.cruddemo.Account;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -83,6 +84,20 @@ public class MyDemoLoggingAspect {
             String name = account.getName().toUpperCase();
             account.setName(name);
         }
+    }
+
+    @AfterThrowing(
+            pointcut = "execution(* com.luv2code.cruddemo.dao.AccountDAO.findAccounts(..))",
+            throwing = "theExc"
+    )
+    public void afterThrowingFindAccountsAdvice(JoinPoint theJoinPoint, Throwable theExc){
+
+        // print out the method that we are advising on
+        String method = theJoinPoint.getSignature().toShortString();
+        System.out.println("\n=====>>> Executing @AfterThrowing on method: " + method);
+
+        // log the exception
+        System.out.println("\n=====>>> The exception is: " + theExc);
     }
 
 }

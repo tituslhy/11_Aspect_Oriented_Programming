@@ -20,8 +20,25 @@ public class CruddemoApplication {
     public CommandLineRunner commandLineRunner(AccountDAO theAccountDAO, MembershipDAO theMembershipDAO){
         return runner -> {
 //            demoTheBeforeAdvice(theAccountDAO, theMembershipDAO);
-            demoTheAfterReturningAdvice(theAccountDAO);
+//            demoTheAfterReturningAdvice(theAccountDAO);
+            demoTheAfterThrowingAdvice(theAccountDAO);
         };
+    }
+
+    private void demoTheAfterThrowingAdvice(AccountDAO theAccountDAO) {
+        List<Account> accounts =  null;
+
+        try{
+            boolean tripWire = true;
+            accounts = theAccountDAO.findAccounts(tripWire);
+        }
+        catch (Exception exc){
+            System.out.println("\n\nMain Program: ... caught exception: " +  exc) ;
+        }
+
+        System.out.println("----");
+        System.out.println(accounts);
+        System.out.println("\n");
     }
 
     private void demoTheAfterReturningAdvice(AccountDAO theAccountDAO) {

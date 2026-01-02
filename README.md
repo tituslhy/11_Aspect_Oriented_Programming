@@ -198,3 +198,8 @@ public void afterReturningFindAccountsAdvice(
 }
 
 ```
+
+## On Exceptions
+If you are only interested in intercepting the exception (reading it), use `@AfterThrowing` advice. In this case, the exception will still be propagated to the calling program - the users will see this exception.
+
+Otherwise, use `@Around` to swallow the exception whole - it never sees the light of day.

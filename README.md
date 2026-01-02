@@ -178,7 +178,7 @@ public void beforeAddAccountAdvice(JoinPoint theJoinPoint) {
 }
 ```
 
-## Accessing the return value
+## Accessing the return value (`@AfterReturning` advice)
 You can use any parameter name - just stay consistent. The parameter defined under `returning` must match the parameter name in the method call.
 
 ```java

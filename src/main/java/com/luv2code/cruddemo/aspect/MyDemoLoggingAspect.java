@@ -2,11 +2,14 @@ package com.luv2code.cruddemo.aspect;
 
 import com.luv2code.cruddemo.Account;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Order(2)
 @Aspect
@@ -48,6 +51,38 @@ public class MyDemoLoggingAspect {
             }
         }
 
+    }
+
+    @AfterReturning(
+            pointcut = "execution(* com.luv2code.cruddemo.dao.AccountDAO.findAccounts(..))",
+            returning = "result"
+    )
+    public void afterReturningFindAccountsAdvice(JoinPoint theJoinPoint, List<Account> result){
+
+        //print out the method we are advising on
+        String method = theJoinPoint.toShortString();
+        System.out.println("\n====>>> Executing @AfterReturning on method: " + method);
+
+        // Edit the result
+        if (!result.isEmpty()){
+            Account tempAccount = new Account();
+            tempAccount.setName("Booo");
+            result.add(tempAccount);
+        }
+
+        System.out.println("\n====>>> Result is: " + result);
+
+        // convert the account name to uppercase
+        convertAccountToUpperCase(result);
+
+        System.out.println("\n====>>> Result is: " + result);
+    }
+
+    private void convertAccountToUpperCase(List<Account> result) {
+        for (Account account: result){
+            String name = account.getName().toUpperCase();
+            account.setName(name);
+        }
     }
 
 }

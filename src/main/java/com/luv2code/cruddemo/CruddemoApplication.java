@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class CruddemoApplication {
 
@@ -17,8 +19,17 @@ public class CruddemoApplication {
     @Bean
     public CommandLineRunner commandLineRunner(AccountDAO theAccountDAO, MembershipDAO theMembershipDAO){
         return runner -> {
-            demoTheBeforeAdvice(theAccountDAO, theMembershipDAO);
+//            demoTheBeforeAdvice(theAccountDAO, theMembershipDAO);
+            demoTheAfterReturningAdvice(theAccountDAO);
         };
+    }
+
+    private void demoTheAfterReturningAdvice(AccountDAO theAccountDAO) {
+        List<Account> accounts =  theAccountDAO.findAccounts();
+        System.out.println("\n\nMain Program: demoTheAfterReturningAdice");
+        System.out.println("----");
+        System.out.println(accounts);
+        System.out.println("\n");
     }
 
     private void demoTheBeforeAdvice(AccountDAO theAccountDAO, MembershipDAO theMembershipDAO) {

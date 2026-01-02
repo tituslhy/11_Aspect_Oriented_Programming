@@ -126,7 +126,7 @@ private void getter(){}
 private void setter(){}
 
 @Pointcut("forDaoPackage() && !(getter() || setter())")
-private void forDaoPackageNoGetterNoSetter()
+private void forDaoPackageNoGetterNoSetter(){}
 ```
 
 This means that our "combo" pointcut runs for all methods in the package except for the getters and setters.
@@ -198,8 +198,20 @@ public void afterReturningFindAccountsAdvice(
 }
 
 ```
+## The `@After` advice
+Always runs regardless of whether the method it monitors succeeds or fails. It's the equivalent of `finally` in Python.
+
+The `@After` advice does not have access to the exception. If you need exception, then use `@AfterThrowing` advice. 
+
+The `@After` advice should be able to run in the case of success or error. The code should not depend on happy path or an exception.
+
+Logging/auditing are the most common use cases.
 
 ## On Exceptions
 If you are only interested in intercepting the exception (reading it), use `@AfterThrowing` advice. In this case, the exception will still be propagated to the calling program - the users will see this exception.
 
 Otherwise, use `@Around` to swallow the exception whole - it never sees the light of day.
+
+`@Around` runs before and after the target method's execution. It's a combination of `@Before` and `@After`. Typically used for logging, auditing, security, pre- and post-processing, instrumentation/profiling code, and manage exceptions.
+
+The `ProceedingJoinPoint` type is only available to the `@Around` advice. It's essentially the handler to execute the target method.
